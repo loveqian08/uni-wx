@@ -10,43 +10,25 @@ const store = new Vuex.Store({
     modules: {
         common: {
             state: {
-				localNo: '', // 本地化Id
-				localNoJyd: '', //  本地化Id 金裕贷
-				cmNoInfo: {}, // 客户经理工号
-				agreementInfo: {},
-				isTimeout: '', // 记录是否为授信过期
-				companyInfo: {}, // 企业名字和企业社会统一信用代码
-				isLogin: 0,
-				channelSourceName:'', //来源渠道名称
-                userInfo: '',
-                token: '',
-				// 服务器时间
-				sysTime: {
-					currDate: new Date().getTime(),
-					offset: 0
-				},
-				launchParams: {},
-				loansType: 'jyd', //金裕贷jyd  车裕贷cyd
-				isWhite: '',
-				exit: false,
+				phone: '', // 手机
             },
             mutations: {
 				// 是否为白名单
-				setWhite (state, params) {
-					state.isWhite = params;
+				savePhone (state, payload) {
+					state.phone = payload.phone;
 					try {
-						uni.setStorageSync('isWhite', params)
+						uni.setStorageSync('phone', payload.phone)
 					} catch (e) {
 						console.error(e)
 					}
 				}
             },
             getters: {
-				getIsWhite: state => {
-					if (state.isWhite) {
-						return state.isWhite;
+				getPhone: state => {
+					if (state.phone) {
+						return state.phone;
 					} else {
-						return uni.getStorageSync('isWhite') || '';
+						return uni.getStorageSync('phone') || '';
 					}
 				}
 			},
